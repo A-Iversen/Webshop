@@ -1,13 +1,12 @@
 ﻿erDiagram
     CUSTOMER {
         int CustomerId PK
-        int PointSystemId FK
         int CustomerAddressId FK
         nvarchar Name
         nvarchar Email
         int PointBalance
     }
-    DeliveryAddress {
+    DELIVERYADRESS {
         int DeliveryAddressId PK
         nvarchar Street
         nvarchar City
@@ -15,7 +14,7 @@
         nvarchar ZipCode
         nvarchar Country
     }
-    CustomerAddress{
+    CUSTOMERADDRESS{
         int CustomerAddressId PK
         nvarchar Street
         nvarchar City
@@ -57,7 +56,7 @@
     }
     "ORDER STATUS"{
         int OrderStatusId PK
-        nvarchar StatusName
+        nvarchar Name
     }
 
 
@@ -66,5 +65,5 @@
     "ORDER" ||--o{ ORDERLINE : "contains"
     "ORDER" }o--|| "ORDER STATUS" : "has"
     "ORDER" }o--|| PAYMENTMETHOD : "pays with"
-    CUSTOMER ||--o{ CustomerAddress : "has"
-    DeliveryAddress ||--o{ "ORDER" : "delivers to"
+    CUSTOMER ||--o{ CUSTOMERADDRESS : "has"
+    DELIVERYADRESS ||--o{ "ORDER" : "delivers to"
