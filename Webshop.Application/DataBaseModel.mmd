@@ -1,0 +1,70 @@
+﻿erDiagram
+    CUSTOMER {
+        int CustomerId PK
+        int PointSystemId FK
+        int CustomerAddressId FK
+        nvarchar Name
+        nvarchar Email
+        int PointBalance
+    }
+    DeliveryAddress {
+        int DeliveryAddressId PK
+        nvarchar Street
+        nvarchar City
+        nvarchar State
+        nvarchar ZipCode
+        nvarchar Country
+    }
+    CustomerAddress{
+        int CustomerAddressId PK
+        nvarchar Street
+        nvarchar City
+        nvarchar State
+        nvarchar ZipCode
+        nvarchar Country
+    }
+
+    "ORDER" {
+        int OrderNumber PK
+        int CustomerId FK
+        int OrderStatusId FK
+        int PaymentMethodId FK
+        int DeliveryAddressId FK
+        date Date
+        date DeliveryDate
+        float ActualPointPercentage
+        int TotalSum
+        int TotalPoints
+    }
+    ORDERLINE {
+        int OrderLineId PK
+        int OrderNumber FK
+        int ProductId FK
+        int Quantity
+        float Price
+    }
+    PRODUCT {
+        int ProductId PK
+        nvarchar Name
+        nvarchar Description
+        int Stock
+        float Price
+        string ProductImage
+    }
+     PAYMENTMETHOD {
+        int PaymentMethodId PK
+        nvarchar PaymentType
+    }
+    "ORDER STATUS"{
+        int OrderStatusId PK
+        nvarchar StatusName
+    }
+
+
+    CUSTOMER ||--o{ "ORDER" : "places"
+    PRODUCT ||--o{ ORDERLINE : "contained in"
+    "ORDER" ||--o{ ORDERLINE : "contains"
+    "ORDER" }o--|| "ORDER STATUS" : "has"
+    "ORDER" }o--|| PAYMENTMETHOD : "pays with"
+    CUSTOMER ||--o{ CustomerAddress : "has"
+    DeliveryAddress ||--o{ "ORDER" : "delivers to"
